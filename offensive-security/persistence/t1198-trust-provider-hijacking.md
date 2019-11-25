@@ -48,21 +48,17 @@ From:
 
 To:
 
-{% code-tabs %}
-{% code-tabs-item title="DLL" %}
+{% code title="DLL" %}
 ```csharp
 C:\Windows\System32\ntdll.dll
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="FuncName" %}
+{% code title="FuncName" %}
 ```text
 DbgUIContinue
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ![](../../.gitbook/assets/trust-to.png)
 
@@ -96,4 +92,6 @@ For all the registry keys/values that should be used as a baseline, please refer
 {% embed url="https://www.youtube.com/watch?v=WrHTJQovDoY" %}
 
 {% embed url="https://www.hanselman.com/blog/SigningPowerShellScripts.aspx" %}
+
+{% embed url="https://github.com/netbiosX/Digital-Signature-Hijack" %}
 

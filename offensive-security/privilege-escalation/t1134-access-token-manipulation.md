@@ -31,8 +31,7 @@ Note the line 16, which specifies the executable that should be launched with an
 
 This is the code if you want to compile and try it yourself:
 
-{% code-tabs %}
-{% code-tabs-item title="tokens.cpp" %}
+{% code title="tokens.cpp" %}
 ```cpp
 #include "stdafx.h"
 #include <windows.h>
@@ -60,8 +59,7 @@ int main(int argc, char * argv[]) {
     return 0;
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## Execution
 
@@ -73,13 +71,11 @@ The logon for OFFESNE\administrator in the above test was of logon type 2 \(inte
 
 Another quick test that I wanted to do was a theft of an access token that was present in the system due to a network logon \(i.e psexec, winexec, pth-winexe, etc\), so I spawned a cmd shell remotely from the attacking machine to the victim machine using:
 
-{% code-tabs %}
-{% code-tabs-item title="attacker@local" %}
+{% code title="attacker@local" %}
 ```text
 pth-winexe //10.0.0.2 -U offense/administrator%pass cmd
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 which created a new process on the victim system with a PID of 4780:
 

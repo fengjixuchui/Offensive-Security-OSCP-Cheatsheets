@@ -36,7 +36,7 @@ Let's start calc.exe as our host / destination process - this is going to be the
 
 ### Destination ImageBaseAddress
 
-Now, in order to hollow out the destination process, we need to know its `ImageBaseAddress`. We can get the location of image base address from the [PEB](../../miscellaneous-reversing-forensics/process-environment-block.md) structure of the host process via WinDBG - we know that the PEB is located at 0100e000:
+Now, in order to hollow out the destination process, we need to know its `ImageBaseAddress`. We can get the location of image base address from the [PEB](../../miscellaneous-reversing-forensics/exploring-process-environment-block.md) structure of the host process via WinDBG - we know that the PEB is located at 0100e000:
 
 ![](../../.gitbook/assets/screenshot-from-2019-04-28-16-36-33.png)
 
@@ -247,8 +247,7 @@ After executing the code line 118 \(top left in the screenshot above\), `0040E7A
 
 ## Code
 
-{% code-tabs %}
-{% code-tabs-item title="process-hollowing.cpp" %}
+{% code title="process-hollowing.cpp" %}
 ```cpp
 // process-hollowing.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
@@ -388,8 +387,7 @@ int main()
 }
 
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ## References
 
@@ -400,6 +398,8 @@ What an amazing resource for those interested in detecting process hollowing usi
 {% embed url="https://cysinfo.com/detecting-deceptive-hollowing-techniques/" %}
 
 {% embed url="https://attack.mitre.org/techniques/T1093/" %}
+
+{% embed url="https://github.com/peperunas/injectopi/tree/master/FullCopy" %}
 
 {% page-ref page="../../miscellaneous-reversing-forensics/pe-file-header-parser-in-c++.md" %}
 

