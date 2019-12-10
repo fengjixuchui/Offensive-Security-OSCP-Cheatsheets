@@ -184,7 +184,7 @@
 * [Exfiltration](offensive-security/exfiltration/README.md)
   * [Powershell Payload Delivery via DNS using Invoke-PowerCloud](offensive-security/exfiltration/payload-delivery-via-dns-using-invoke-powercloud.md)
 
-## miscellaneous <a id="miscellaneous-reversing-forensics"></a>
+## reversing & forensics <a id="miscellaneous-reversing-forensics"></a>
 
 * [Windows Kernel](miscellaneous-reversing-forensics/windows-kernel/README.md)
   * [Configuring Kernel Debugging Environment with kdnet and WinDBG Preview](miscellaneous-reversing-forensics/windows-kernel/configuring-kernel-debugging-environment-with-kdnet-and-windbg-preview.md)
