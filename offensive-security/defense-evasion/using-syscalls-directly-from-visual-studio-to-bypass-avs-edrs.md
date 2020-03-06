@@ -12,19 +12,19 @@ Also, see my previous labs about API hooking/unhooking: [Windows API Hooking](..
 
 Add a new file to the project, say `syscalls.asm` - make sure the main cpp file has a different name as the project will not compile:
 
-![](../../.gitbook/assets/image%20%28137%29.png)
+![](../../.gitbook/assets/image%20%28219%29.png)
 
 Navigate to project's `Build Customizations`:
 
-![](../../.gitbook/assets/image%20%28155%29.png)
+![](../../.gitbook/assets/image%20%28252%29.png)
 
 Enable `masm`:
 
-![](../../.gitbook/assets/image%20%28202%29.png)
+![](../../.gitbook/assets/image%20%28334%29.png)
 
 Configure the `syscalls.asm` file to be part of the project and compiled using Microsoft Macro Assembler:
 
-![](../../.gitbook/assets/image%20%28291%29.png)
+![](../../.gitbook/assets/image%20%28494%29.png)
 
 ## Defining Syscalls
 
@@ -49,11 +49,11 @@ The way we can find the procedure's prologue \(mov r10, rcx, etc..\) is by disas
 FARPROC addr = GetProcAddress(LoadLibraryA("ntdll"), "NtCreateFile");
 ```
 
-![](../../.gitbook/assets/image%20%28133%29.png)
+![](../../.gitbook/assets/image%20%28212%29.png)
 
 Disassembling the address of the `NtCreateFile` in `ntdll` - note the highlighted instructions and we can skip the `test` / `jne` instructions at this point as they are irrelevant for this exercise:
 
-![](../../.gitbook/assets/image%20%28289%29.png)
+![](../../.gitbook/assets/image%20%28492%29.png)
 
 ## Declaring the Calling C Function
 
@@ -82,7 +82,7 @@ EXTERN_C NTSTATUS SysNtCreateFile(
 
 Once we have the prototype, we can compile the code and check if the `SysNtCreateFile` function can now be found in the process memory by entering the function's name in Visual Studio disassembly panel:
 
-![](../../.gitbook/assets/image%20%2855%29.png)
+![](../../.gitbook/assets/image%20%2887%29.png)
 
 The above indicates that assembly instructions were compiled into the binary successfully and once executed, they will issue a syscall `0x55` that is normally called by `NtCreateFile` from within ntdll.
 
@@ -90,7 +90,7 @@ The above indicates that assembly instructions were compiled into the binary suc
 
 Before testing `SysNtCreateFile`, we need to initialize some structures and variables \(like the name of the file name to be opened, access requirements, etc.\) required by the `NtCreateFile`:
 
-![](../../.gitbook/assets/image%20%2815%29.png)
+![](../../.gitbook/assets/image%20%2824%29.png)
 
 ## Invoking the Syscall
 
@@ -114,7 +114,7 @@ SysNtCreateFile(
 
 If we go into debug mode, we can see that all the arguments required by the `SysNtCreateFile` are being pushed on to the stack - as seen on the right disassembler panel where the break point on `SysNtCreateFile` is set:
 
-![](../../.gitbook/assets/image%20%284%29.png)
+![](../../.gitbook/assets/image%20%285%29.png)
 
 If we continue debugging, the debugger eventually steps in to our assembly code that defines the `SysNtCreateFile` procedure and issues the syscall for `NtCreateFile`. Once the syscall finishes executing, a handle to the opened file `c:\temp\test.txt` is returned to the variable `fileHandle`:
 
