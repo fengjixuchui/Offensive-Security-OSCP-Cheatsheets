@@ -225,7 +225,7 @@
 
 ## reversing, forensics & misc <a id="miscellaneous-reversing-forensics"></a>
 
-* [Windows / OS Internals](miscellaneous-reversing-forensics/windows-kernel-internals/README.md)
+* [Internals](miscellaneous-reversing-forensics/windows-kernel-internals/README.md)
   * [Configuring Kernel Debugging Environment with kdnet and WinDBG Preview](miscellaneous-reversing-forensics/windows-kernel-internals/configuring-kernel-debugging-environment-with-kdnet-and-windbg-preview.md)
   * [Compiling a Simple Kernel Driver, DbgPrint, DbgView](miscellaneous-reversing-forensics/windows-kernel-internals/compiling-first-kernel-driver-kdprint-dbgprint-and-debugview.md)
   * [Loading Windows Kernel Driver for Debugging](miscellaneous-reversing-forensics/windows-kernel-internals/loading-a-windows-kernel-driver-osr-driver-loader-debugging-with-source-code.md)
