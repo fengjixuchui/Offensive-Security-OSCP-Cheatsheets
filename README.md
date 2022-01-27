@@ -4,9 +4,15 @@ description: What this is all about.
 
 # What is ired.team?
 
+{% hint style="success" %}
+**Support and Donations**
+
+If you appreciate ired.team and would like to show support, you can do it either via my [Patreon](http://patreon.com/iredteam) or BTC address `3Bi5xgtwUU9BfMejW7PQwhoMFA19x8Q7yp` or ETH address `0x03789987ca76812234d3F4839169Fb9988760fa1`
+{% endhint %}
+
 {% hint style="danger" %}
-**Warning**  
-[ired.team](https://ired.team) Red Teaming Experiments GitBook is created by [@spotheplanet](https://twitter.com/spotheplanet).   
+**Warning**\
+****[ired.team](https://ired.team) Red Teaming Experiments GitBook is created by [@spotheplanet](https://twitter.com/spotheplanet). \
 Cloning it and presenting it as your own is illegal and strictly forbidden, don't do it.
 {% endhint %}
 
@@ -15,7 +21,7 @@ This is publicly accessible personal notes at [https://ired.team](https://ired.t
 This is my way of learning things - by doing, following, tinkering, exploring, repeating and taking notes.
 
 {% hint style="warning" %}
-* Do not take everything or anything in these notes for **granted** 
+* Do not take everything or anything in these notes for **granted**&#x20;
 * Do not expect the notes to be exhaustive or covering the techniques or the artifacts they produce in full
 * Expect mistakes in the notes
 * Always consult additional resources
@@ -42,6 +48,4 @@ The goal of this project is simple - read other researchers work, execute some c
 Follow me on twitter:
 
 {% embed url="https://twitter.com/spotheplanet" %}
-
-
 
