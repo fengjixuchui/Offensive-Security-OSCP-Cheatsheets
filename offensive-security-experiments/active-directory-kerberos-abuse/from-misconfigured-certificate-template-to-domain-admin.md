@@ -133,7 +133,7 @@ Now, copy the contents of the `cert-request.csr` as we will need it in the last 
 
 Navigate to `https://$adcs/certsrv`, where `$adcs` is the Active Directory Certificate Services host and click `Request a certificate`:
 
-![Requesting certificates via ADCS web self service portal](<../../.gitbook/assets/image (1088) (1).png>)
+![Requesting certificates via ADCS web self service portal](<../../.gitbook/assets/image (1088) (1) (1).png>)
 
 Click `advanced certificate request`:
 
@@ -141,7 +141,7 @@ Click `advanced certificate request`:
 
 Finally, select the vulnerable certificate template you want to base your new rogue certificate on, paste the contents of the `cert-request.csr` into the request field and hit `Submit` to retrieve the new certificate for your target user:
 
-![Portal for submitting advanced certificate request](<../../.gitbook/assets/image (1085) (1) (1).png>)
+![Portal for submitting advanced certificate request](<../../.gitbook/assets/image (1085) (1) (1) (1).png>)
 
 ## References
 

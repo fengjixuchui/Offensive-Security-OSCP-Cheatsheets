@@ -11,8 +11,7 @@ This is a quick lab to familiarize with a technique called [Shadow Credentials](
 Besides the ability to write the attribute `msDS-KeyCredentialLink` on a target user or computer, for this technique to work, the environment must be set up as follows:
 
 * Domain must have Active Directory Certificate Services and Certificate Authority configured.
-* Active Directory must be at least Windows Server 2016 Functional Level.
-* Domain must have at least one DC running with Windows Server 2016.
+* Domain must have at least one DC running with Windows Server 2016 that supports PKINIT.
 
 ## User Account Take Over
 
@@ -42,7 +41,7 @@ Below shows that whisker successfully updated the `msDS-KeyCredentialLink` attri
 
 At the same time, whisker spits out a `rubeus` command that we can then use against the target account `sac1$` to pull its TGT and/or reveal its NTLM hash (for use in Pass The Hash attacks):
 
-![Adding shadow credentials to sac1$ computer account](<../../.gitbook/assets/image (1089) (1).png>)
+![Adding shadow credentials to sac1$ computer account](<../../.gitbook/assets/image (1089) (1) (1).png>)
 
 After the shadow credential has been added to the account, we can confirm that the `msDS-KeyCredentialLink` was indeed added/written to:
 
@@ -52,11 +51,11 @@ get-netcomputer sac1
 ```
 {% endcode %}
 
-![SAC1$ with shadow credential set in the attribute msDS-KeyCredentialLink](<../../.gitbook/assets/image (1089).png>)
+![SAC1$ with shadow credential set in the attribute msDS-KeyCredentialLink](<../../.gitbook/assets/image (1089) (1).png>)
 
 We're now ready to take over the `sac1$` computer account and elevate to `Domain Admin`. Before that, let's confirm we cannot access the `c$` share on the domain controller `first-dc.first.local` with `regular.user` privileges:
 
-![Attempt to list c$ on the domain controller before shadow credentials attack - fail](<../../.gitbook/assets/image (1088).png>)
+![Attempt to list c$ on the domain controller before shadow credentials attack - fail](<../../.gitbook/assets/image (1088) (1).png>)
 
 Let's now pull a TGT for `SAC1$` using the shadow credentials that we've just added and try accessing the `c$` on the domain controller `first-dc` once again:
 
@@ -99,7 +98,7 @@ Rubeus.exe asktgt /user:user-server2$ /certificate:MIIJ0AIBAzCCCYwGCSqGSIb3DQEHA
 
 Before gaining administrative access over the computer `user-server2`, let's check we do not already have admin privileges there:
 
-![Attempt to list c$ admin share fails](<../../.gitbook/assets/image (1085).png>)
+![Attempt to list c$ admin share fails](<../../.gitbook/assets/image (1085) (1).png>)
 
 Let's now request a TGS for `admin@first.local` (domain admin) to the `CIFS` (SMB) service on the target computer `user-server2.first.local` that we want to take over and attempt listing its administrative `c$` once again:
 
@@ -110,12 +109,20 @@ ls \\user-server2.first.local\c$
 
 Below shows how the TGS is requested and imported to memory, which in turn enables our low privileged user `regular.user` to authenticate to the `user-server2.first.local` and list its `C$` share with an impersonated `Domain Admin` user `admin`:
 
-![Computer Account Takeover with shadow credentials is successful](<../../.gitbook/assets/image (1090) (1).png>)
+![Computer Account Takeover with shadow credentials is successful](<../../.gitbook/assets/image (1090) (1) (1).png>)
 
 Below simply shows the TGS that we have in memory for accessing CIFS service on `user-server2.first.local` while impersonating `admin@first.local`:
 
-![S4U2Self - CIFS service requested TGS to itself on behalf of first\admin](<../../.gitbook/assets/image (1090).png>)
+![S4U2Self - CIFS service requested TGS to itself on behalf of first\admin](<../../.gitbook/assets/image (1090) (1).png>)
 
-## References
+{% hint style="info" %}
+**Operating from Linux**
+
+If you're operating from a Linux box, you may execute the Shadow credentials technique using [pyWhisker](https://github.com/ShutdownRepo/pywhisker) (whisker ported to Python) by [https://twitter.com/\_nwodtuhs](https://twitter.com/\_nwodtuhs).
+{% endhint %}
+
+## References & Credits
 
 {% embed url="https://posts.specterops.io/shadow-credentials-abusing-key-trust-account-mapping-for-takeover-8ee1a53566ab" %}
+
+Thanks to [https://twitter.com/gladiatx0r](https://twitter.com/gladiatx0r) for correcting the environment pre-requisites and mentioning [pywhisker](https://github.com/ShutdownRepo/pywhisker).
