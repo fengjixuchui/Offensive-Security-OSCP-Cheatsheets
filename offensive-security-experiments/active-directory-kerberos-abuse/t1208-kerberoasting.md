@@ -46,6 +46,12 @@ It would have been better to use the following command provided by [Sean Metcalf
 get-adobject -filter {serviceprincipalname -like “*sql*”} -prop serviceprincipalname
 ```
 
+Another alternative working on Linux using [bloodyAD](https://github.com/CravateRouge/bloodyAD):
+
+```csharp
+python bloodyAD.py -u '$user' -p '$password' -d '$domain' --host '$host' get search --filter '(&(!(cn=krbtgt))(&(samAccountType=805306368)(servicePrincipalName=*)))' --attr sAMAccountName | grep sAMAccountName | cut -d ' ' -f 2
+```
+
 Additionally, user accounts with SPN set could be extracted with a native windows binary:
 
 ```
@@ -103,7 +109,7 @@ Below is a security log `4769` showing service access being requested:
 
 If you see `Add-event -AssemblyName SystemIdentityModel` (from advanced Powershell logging) followed by a windows security event `4769` immediately after that, you may be looking at an old school Kerberoasting, especially if ticket encryption type has a value `0x17` (23 decimal, meaning it's RC4 encrypted):
 
-![](../../.gitbook/assets/kerberoast-logs.png)
+![](<../../.gitbook/assets/kerberoast-logs (1).png>)
 
 ### Traffic
 
@@ -113,9 +119,9 @@ Below is the screenshot showing a request being sent to the `Ticket Granting Ser
 
 Below is the response from the TGS for the user `spotless` (we initiated this attack from offense\spotless) which contains the encrypted (RC4) kerberos ticket (server part) to access the `HTTP/dc-mantvydas.offense.local` service. It is the same ticket we cracked earlier with [tgsrepcrack.py](t1208-kerberoasting.md#cracking-the-ticket):
 
-![](../../.gitbook/assets/kerberoast-tgs-res.png)
+![](<../../.gitbook/assets/kerberoast-tgs-res (1).png>)
 
-Out of curiosity, let's decrypt the kerberos ticket since we have the password the ticket was encrypted with.&#x20;
+Out of curiosity, let's decrypt the kerberos ticket since we have the password the ticket was encrypted with.
 
 Creating a kerberos keytab file for use in wireshark:
 
